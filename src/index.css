@@ -1,18 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700&family=Syne:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap');
 @import "tailwindcss";
 
 
+:root {
+  --void: #030014;
+}
 
-html.lenis, html.lenis body {
-  height: auto;
+html {
+  scroll-behavior: smooth;
 }
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--void);
+  color: #ffffff;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
+
+/* Custom Scrollbar for Premium Feel */
+::-webkit-scrollbar {
+  width: 8px;
 }
-.lenis.lenis-stopped {
-  overflow: hidden;
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Utility for text gradients */
+.text-gradient {
+  background: linear-gradient(to right, #22d3ee, #c084fc, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

@@ -1,86 +1,145 @@
-import React, { useEffect, useState } from 'react';
-import { ArrowUpRight, Globe, Zap, Layout, Box } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Play, Star, Globe, Zap, ShieldCheck } from 'lucide-react';
 
 const Hero = () => {
-  const [loaded, setLoaded] = useState(false);
+  // Animation Stagger Configuration
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+    }
+  };
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoaded(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
+  const container = {
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      }
+    }
+  };
 
   return (
-    <section className="relative w-full min-h-[100dvh] flex flex-col justify-center pt-32 pb-12 px-6 lg:px-12 overflow-hidden">
+    <section className="relative min-h-[100svh] flex flex-col justify-between pt-28 pb-10 px-6 overflow-hidden bg-[#030014]">
       
-      <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-center relative z-10">
-
-        {/* --- LEFT: Typography --- */}
-        <div className="lg:col-span-7 flex flex-col justify-center">
-          
-          <div className={`flex items-center gap-3 transition-all duration-700 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <div className="h-[1px] w-8 bg-cyan-400"></div>
-            <span className="text-xs font-mono uppercase tracking-widest text-cyan-300">System Architecture v2.0</span>
-          </div>
-
-          <div className="mt-8 space-y-6">
-            <h1 className={`text-5xl sm:text-6xl md:text-7xl font-medium leading-[1.05] tracking-tight text-white transition-all duration-700 delay-100 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              We don't just <br className="hidden sm:block" /> build websites.
-            </h1>
-            
-            <p className={`text-xl sm:text-2xl text-slate-400 font-light max-w-2xl transition-all duration-700 delay-200 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              We engineer digital authority for brands that command respect.
-            </p>
-
-            <div className={`flex flex-col sm:flex-row gap-4 pt-6 transition-all duration-700 delay-300 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <button className="group relative px-8 py-4 bg-white text-black text-sm font-bold tracking-tight rounded-sm hover:bg-cyan-50 transition-colors w-full sm:w-auto">
-                <span className="flex items-center justify-center gap-2">
-                  Initiate Project
-                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </span>
-              </button>
-              
-              <button className="group flex items-center justify-center gap-3 px-8 py-4 text-sm font-medium text-slate-300 hover:text-white transition-colors border border-white/5 hover:border-white/20 rounded-sm w-full sm:w-auto backdrop-blur-sm">
-                View Case Studies
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* --- RIGHT: Glass Matrix Card --- */}
-        <div className={`lg:col-span-5 w-full transition-all duration-1000 delay-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-y-12 lg:translate-y-0 lg:translate-x-12'}`}>
-          
-          <div className="relative w-full bg-white/5 backdrop-blur-2xl border border-white/10 p-6 sm:p-8 rounded-2xl shadow-2xl ring-1 ring-white/5">
-            {/* Header */}
-            <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
-              <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Service_Matrix_DB</span>
-              <Box className="w-4 h-4 text-cyan-400" />
-            </div>
-
-            {/* List */}
-            <div className="space-y-3">
-              {[
-                { icon: <Layout size={18} />, title: "Interface Architecture", sub: "Figma / React" },
-                { icon: <Globe size={18} />, title: "Global Engineering", sub: "Next.js / Edge" },
-                { icon: <Zap size={18} />, title: "Performance Logic", sub: "Core Vitals / SEO" }
-              ].map((item, i) => (
-                <div key={i} className="group flex items-center justify-between p-4 rounded-lg bg-black/20 border border-white/5 hover:bg-white/5 hover:border-cyan-500/30 transition-all cursor-default">
-                  <div className="flex items-center gap-4">
-                    <div className="p-2 rounded bg-white/5 text-cyan-400 group-hover:text-white transition-colors">
-                      {item.icon}
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium text-slate-200">{item.title}</div>
-                      <div className="text-[10px] text-slate-500 uppercase tracking-wider">{item.sub}</div>
-                    </div>
-                  </div>
-                  <ArrowUpRight className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
+      {/* --- 1. Ambient Background (Fixed & Optimized) --- */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Top Center Glow */}
+        <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-purple-600/20 blur-[120px] rounded-full mix-blend-screen" />
+        {/* Bottom Right Glow */}
+        <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-cyan-500/10 blur-[100px] rounded-full mix-blend-screen" />
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
       </div>
+
+      {/* --- 2. Main Content Container --- */}
+      <motion.div 
+        initial="hidden"
+        animate="visible"
+        variants={container}
+        className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center flex-grow justify-center mt-4 md:mt-0"
+      >
+      
+        {/* Hero Title - Responsive Sizing */}
+        <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+          Crafting Digital <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 animate-gradient-x">
+            Masterpieces
+          </span>
+        </motion.h1>
+
+        {/* Subtitle */}
+        <motion.p variants={fadeUp} className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-10">
+          We bridge the gap between imagination and reality. An award-winning agency redefining the digital landscape for global brands.
+        </motion.p>
+
+        {/* Action Buttons - Stack on Mobile, Row on Desktop */}
+        <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+          <button className="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-black font-bold text-lg hover:scale-105 active:scale-95 transition-transform flex items-center justify-center gap-2 group">
+            Start Project 
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </button>
+          
+          <button className="w-full sm:w-auto px-8 py-4 rounded-full border border-white/10 bg-white/5 text-white font-semibold text-lg backdrop-blur-sm hover:bg-white/10 transition-colors flex items-center justify-center gap-3 group">
+            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-cyan-500 group-hover:text-black transition-colors">
+              <Play className="w-4 h-4 fill-current ml-0.5" />
+            </div>
+            Showreel
+          </button>
+        </motion.div>
+
+      </motion.div>
+
+      {/* --- 3. Stats Bar (Fixed Layout Logic) --- */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 1 }}
+        className="relative z-10 w-full max-w-6xl mx-auto mt-12 md:mt-20"
+      >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl">
+          
+          {/* Stat 1 */}
+          <div className="flex flex-col items-center md:items-start p-2">
+            <div className="flex items-center gap-2 text-cyan-400 mb-1">
+              <Globe className="w-4 h-4" />
+              <span className="text-xs font-bold uppercase tracking-wider">Global</span>
+            </div>
+            <div className="text-2xl md:text-3xl font-bold text-white">50+ Countries</div>
+            <div className="text-xs text-slate-500">Client presence</div>
+          </div>
+
+          {/* Stat 2 */}
+          <div className="flex flex-col items-center md:items-start p-2">
+            <div className="flex items-center gap-2 text-purple-400 mb-1">
+              <Zap className="w-4 h-4" />
+              <span className="text-xs font-bold uppercase tracking-wider">Speed</span>
+            </div>
+            <div className="text-2xl md:text-3xl font-bold text-white">99.9%</div>
+            <div className="text-xs text-slate-500">Uptime guarantee</div>
+          </div>
+
+          {/* Stat 3 */}
+          <div className="flex flex-col items-center md:items-start p-2">
+            <div className="flex items-center gap-2 text-pink-400 mb-1">
+              <ShieldCheck className="w-4 h-4" />
+              <span className="text-xs font-bold uppercase tracking-wider">Secure</span>
+            </div>
+            <div className="text-2xl md:text-3xl font-bold text-white">ISO 27001</div>
+            <div className="text-xs text-slate-500">Certified Agency</div>
+          </div>
+
+          {/* Social Proof (Avatars) */}
+          <div className="flex flex-col items-center md:items-end justify-center p-2">
+             <div className="flex -space-x-3 mb-2">
+               {[1,2,3].map((i) => (
+                 <img 
+                   key={i}
+                   className="w-10 h-10 rounded-full border-2 border-[#030014] bg-slate-700"
+                   src={`https://i.pravatar.cc/100?img=${i + 10}`} 
+                   alt="User"
+                 />
+               ))}
+               <div className="w-10 h-10 rounded-full border-2 border-[#030014] bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">
+                 +2k
+               </div>
+             </div>
+             <div className="flex items-center gap-1">
+                <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                <span className="text-xs text-white ml-1 font-medium">5.0 Rating</span>
+             </div>
+          </div>
+
+        </div>
+      </motion.div>
+
     </section>
   );
 };
